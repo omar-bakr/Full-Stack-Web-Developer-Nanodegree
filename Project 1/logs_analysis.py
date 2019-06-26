@@ -19,7 +19,6 @@ def get_best3_articles():
 
 """problem 2 :-Who are the most popular article authors of all time ? """
 def get_best_authtor():
-  print("---------------------------------------------")
   db = psycopg2.connect(database=DBNAME)
   c = db.cursor()
   c.execute("select name,sum_views from best_author,authors where author=authors.id ;")
@@ -31,7 +30,6 @@ def get_best_authtor():
 
 """problem 3 :- On which days did more than 1% of requests lead to errors? ? """
 def get_err_day():
-  print("---------------------------------------------")
   db = psycopg2.connect(database=DBNAME)
   c = db.cursor()
   c.execute('''select all_requests.mydate, round((err.count*1.0/all_requests.count)*100,2) 
@@ -46,7 +44,9 @@ def get_err_day():
 
 if __name__ == '__main__':
     get_best3_articles()
+    print("---------------------------------------------")
     get_best_authtor()
+    print("---------------------------------------------")
     get_err_day()
 
 
