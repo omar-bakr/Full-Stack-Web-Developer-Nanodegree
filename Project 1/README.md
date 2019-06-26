@@ -36,6 +36,7 @@ psql -d news
 ```
 Then copy and paste the creation of the views 
 in order 
+
 **1.best3_articles**
 ```SQL
 create view best3_articles as select path,count(*) as views from log where log.status='200 OK' and log.path like '/article/%'group by path order by views desc limit 3 ;
