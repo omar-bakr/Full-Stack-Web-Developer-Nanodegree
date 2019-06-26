@@ -8,8 +8,8 @@ DBNAME = 'news'
 def get_best3_articles():
     db = psycopg2.connect(database=DBNAME)
     c = db.cursor()
-    query = 'select replace(path,' / article / \
-        ',''),views from best3_articles ;'
+    query = '''select replace(path,'/article/',''),
+    views from best3_articles ;'''
     c.execute(query)
     result = c.fetchall()
     print 'The most popular three articles are :- '
