@@ -6,7 +6,7 @@ This is the first project for the [Udacity full stack web developer nanodegree](
 
 2.Create VM folder and clone the repo there
 
-3.Open your terminal and cd to VM folder then run the folling commands
+3.Open your terminal and cd to VM folder then run the following commands
 
 4.Note that for the fourth command newsdata.sql is not included ,so i am assuimg that you have already this file 
 ```bash
