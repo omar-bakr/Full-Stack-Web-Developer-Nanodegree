@@ -101,8 +101,128 @@ ssh -i .ssh/id_rsa grader@18.184.180.50 -p 2200
 ```bash
 sudo timedatectl set-timezone UTC
 ```
-## 8.Install and configure Apache to serve a Python mod_wsgi application
+## 8.Install Apache 
 ```bash
+sudo apt install apache2
+```
 
-sudo apt-get install apache2
-sudo apt-get install libapache2-mod-wsgi
+## 9.installing git
+
+* install git
+```bash
+sudo apt install git
+```
+* configuring git
+```bash
+git config --global user.name "omar.bakr"
+git config --global user.email "email"
+```
+
+## 10.installing pip
+the package pip required to install certain packages
+```bash
+sudo apt install python-pip
+```
+
+## 11. installing and configuring postgresql
+* install postgresql
+```bash
+sudo apt install postgresql
+```
+* log in as the user postgres
+```bash
+ sudo su - postgres
+ ```
+ * open psql shell
+ ```bash
+ psql
+ ```
+ * type the follwoing commands one by one 
+```postgres 
+postgres=# CREATE DATABASE catalog;
+postgres=# CREATE USER catalog;
+postgres=# ALTER ROLE catalog WITH PASSWORD 'yourpassword';
+postgres=# GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;
+```
+* then exit from the terminal by running \q followed by exit.
+
+## 12.setting up apache to run the flask application
+
+* Installing mod_wsgi
+```bash
+sudo apt install libapache2-mod-wsgi
+``` 
+* cloning the Item Catalog flask application, run the commands one by one
+```bash
+cd /var/www/
+
+sudo mkdir FlaskApp
+
+cd FlaskApp/
+
+sudo git clonehttps://github.com/omar-bakr/Deploy.git FlaskApp
+```
+* install required packages
+```bash
+sudo pip install --upgrade Flask SQLAlchemy httplib2 oauth2client requests psycopg2
+```
+* setting up the virtualHost configuration
+```bash
+ sudo nano /etc/apache2/sites-available/FlaskApp.conf
+ ```
+ then add the following line to FlaskApp.conf :-
+
+ ```bash
+ <VirtualHost *:80>
+   ServerName 18.184.180.50
+   ServerAdmin email
+   WSGIScriptAlias / /var/www/FlaskApp/FlaskApp/flaskapp.wsgi
+   <Directory /var/www/FlaskApp/FlaskApp/>
+       Require all granted
+   </Directory>
+   Alias /static /var/www/FlaskApp/FlaskApp/static
+   <Directory /var/www/FlaskApp/FlaskApp/static/>
+       Require all granted
+   </Directory>
+   ErrorLog ${APACHE_LOG_DIR}/error.log
+   LogLevel warn
+   CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+* enable the virtual host
+```bash
+ sudo a2ensite FlaskApp
+ ```
+ * restsrt apache 
+ ```bash
+sudo service apache2 restart
+ ```
+
+* creating the .wsgi File
+apache uses the .wsgi file to serve the Flask app. move to the /var/www/FlaskApp/ directory and create a file named flaskapp.wsgi with following commands:
+```bash
+cd /var/www/FlaskApp/FlaskApp/
+sudo nano flaskapp.wsgi
+```
+Add the following lines to the flaskapp.wsgi file:
+```python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/FlaskApp/FlaskApp/")
+
+from app import app as application
+application.secret_key = 'super_secret_key'
+```
+* restart apache server
+
+```bash
+sudo service apache2 restart
+```
+now you should be able to run the application at http://18.184.180.50
+
+## 13.Debugging
+* If you are getting an Internal Server Error or any other error(s), make sure to check out Apache's error log for debugging:
+```bash
+sudo cat /var/log/apache2/error.log
+```
