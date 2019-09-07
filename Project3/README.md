@@ -218,7 +218,7 @@ application.secret_key = 'super_secret_key'
 ```bash
 sudo service apache2 restart
 ```
-now you should be able to run the application at http://18.184.180.50
+now you should be able to run the application at http://18.185.149.226/
 
 ## 13.Debugging
 * If you are getting an Internal Server Error or any other error(s), make sure to check out Apache's error log for debugging:
