@@ -4,20 +4,19 @@ This is the third project for the [Udacity full stack web developer nanodegree](
 
 
 ## Server Details
-Server IP Address: 18.184.180.50
+Server IP Address: 18.185.149.226
 
 SSH server access port: 2200
 
 SSH login username: grader
 
-Application URL: http://18.184.180.50
-
+Application URL: http://18.185.149.226/
 ## Setting up the Server 
 ### 1.SSH into the server
 * Download default public key file from ssh keys section on aws account 
 * Then run this command to log into the server 
 ``` bash
- ssh -i LightsailDefaultKey-eu-central-1.pem ubuntu@18.184.180.50
+ ssh -i LightsailDefaultKey-eu-central-1.pem ubuntu@18.185.149.226
   ```
 ### 2.Update all currently installed packages
 ``` bash
@@ -174,7 +173,7 @@ sudo pip install --upgrade Flask SQLAlchemy httplib2 oauth2client requests psyco
 
  ```bash
  <VirtualHost *:80>
-   ServerName 18.184.180.50
+   ServerName 18.185.149.226
    ServerAdmin email
    WSGIScriptAlias / /var/www/FlaskApp/FlaskApp/flaskapp.wsgi
    <Directory /var/www/FlaskApp/FlaskApp/>
