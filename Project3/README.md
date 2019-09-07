@@ -226,3 +226,10 @@ now you should be able to run the application at http://18.184.180.50
 ```bash
 sudo cat /var/log/apache2/error.log
 ```
+
+## Resources
+* [How To Deploy a Flask Application on an Ubuntu VPS](https://digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps)
+
+* [Initial Server Setup with Ubuntu](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04)
+
+ * [Ask ubuntu](https://askubuntu.com/)
